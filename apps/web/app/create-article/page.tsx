@@ -4,6 +4,7 @@ import React from 'react';
 import Head from 'next/head';
 import { useState } from 'react';
 import { Bell } from 'lucide-react';
+import axios from 'axios';
 
 import "@blocknote/core/fonts/inter.css";
 import { BlockNoteView } from "@blocknote/mantine";
@@ -15,6 +16,19 @@ export default function MediumEditorPage() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('Tell your story...');
   const editor = useCreateBlockNote();
+
+  const handlePublish = async () => {
+    try {
+      const blocks = await editor.blocksToMarkdownLossy(); // using the correct method
+      const response = await axios.post('http://localhost:4000/articles', {
+        title,
+        content: blocks,
+      });
+      console.log('Published:', response.data);
+    } catch (error) {
+      console.error('Error publishing article:', error);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#1F1F1F] text-white">
@@ -35,7 +49,7 @@ export default function MediumEditorPage() {
 
           {/* Right side */}
           <div className="flex items-center space-x-4">
-            <button className="bg-green-200 text-gray-800 rounded-full px-4 py-1 text-sm font-medium hover:bg-green-300">
+            <button onClick={handlePublish} className="bg-green-200 text-gray-800 rounded-full px-4 py-1 text-sm font-medium hover:bg-green-300">
               Publish
             </button>
             <button className="text-gray-400 hover:text-gray-200">
