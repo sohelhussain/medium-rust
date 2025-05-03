@@ -3,6 +3,7 @@
 import Image, { type ImageProps } from "next/image";
 import { useState } from "react";
 import Head from "next/head";
+import Link from "next/link";
 
 
 
@@ -11,7 +12,7 @@ export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#faf9f5]">
+    <div className="min-h-screen  bg-[#ffffff]">
       <Head>
         <title>Medium - Where good ideas find you.</title>
         <meta name="description" content="A place to read, write, and deepen your understanding" />
@@ -28,13 +29,13 @@ export default function Home() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-6">
-            <a href="#" className="text-gray-700 hover:text-gray-900">Our story</a>
-            <a href="#" className="text-gray-700 hover:text-gray-900">Membership</a>
-            <a href="#" className="text-gray-700 hover:text-gray-900">Write</a>
-            <a href="#" className="text-gray-700 hover:text-gray-900">Sign in</a>
-            <a href="#" className="bg-black text-white rounded-full px-4 py-2 hover:bg-gray-800">
-              Get started
-            </a>
+            <Link href="#" className="text-gray-700 hover:text-gray-900">Our story</Link>
+            <Link href="#" className="text-gray-700 hover:text-gray-900">Membership</Link>
+            {/* <Link href="#" className="text-gray-700 hover:text-gray-900">Write</Link> */}
+            {/* <a href="#" className="text-gray-700 hover:text-gray-900">Sign in</a> */}
+            <Link href="/create-article" className="bg-black text-white rounded-full px-4 py-2 hover:bg-gray-800">
+              Write now
+            </Link>
           </div>
 
           {/* Mobile menu button */}
@@ -60,20 +61,20 @@ export default function Home() {
         {mobileMenuOpen && (
           <div className="mt-4 md:hidden">
             <div className="flex flex-col space-y-4 pb-3">
-              <a href="#" className="text-gray-700 hover:text-gray-900">Our story</a>
-              <a href="#" className="text-gray-700 hover:text-gray-900">Membership</a>
-              <a href="#" className="text-gray-700 hover:text-gray-900">Write</a>
-              <a href="#" className="text-gray-700 hover:text-gray-900">Sign in</a>
-              <a href="#" className="bg-black text-white rounded-full px-4 py-2 text-center hover:bg-gray-800">
-                Get started
-              </a>
+              <Link href="#" className="text-gray-700 hover:text-gray-900">Our story</Link>
+              <Link href="#" className="text-gray-700 hover:text-gray-900">Membership</Link>
+              {/* <Link href="#" className="text-gray-700 hover:text-gray-900">Write</Link> */}
+              {/* <Link href="#" className="text-gray-700 hover:text-gray-900">Sign in</Link> */}
+              <Link href="/create-article" className="bg-black text-white rounded-full px-4 py-2 text-center hover:bg-gray-800">
+                Write now
+              </Link>
             </div>
           </div>
         )}
       </nav>
 
       {/* Hero Section */}
-      <section className="px-4 py-12 md:py-24 md:px-12 lg:px-24 max-w-7xl mx-auto">
+      <section className="px-4 py-12 md:py-24 md:px-12 lg:px-24 max-w-full mx-auto">
         <div className="flex flex-col md:flex-row items-center">
           <div className="w-full md:w-1/2 mb-12 md:mb-0 md:pr-12">
             <h1 className="text-6xl md:text-7xl lg:text-8xl font-serif font-bold leading-tight mb-6">
@@ -83,40 +84,20 @@ export default function Home() {
             <p className="text-xl md:text-2xl mb-8">
               A place to read, write, and deepen your understanding
             </p>
-            <a href="#" className="inline-block bg-black text-white rounded-full px-8 py-3 font-medium hover:bg-gray-800">
+            <Link href="/readhome" className="inline-block bg-black text-white rounded-full px-8 py-3 font-medium hover:bg-gray-800">
               Start reading
-            </a>
+            </Link>
           </div>
-          <div className="w-full md:w-1/2">
-            {/* <div className="relative h-72 md:h-96 lg:h-full">
-              <div className="absolute top-0 right-0">
-                <div className="relative w-48 h-48 md:w-64 md:h-64">
-                  <div className="absolute top-0 right-0 w-full h-full bg-green-500 rounded-full opacity-90"></div>
-                  <div className="absolute top-1/4 left-1/4 w-1/2 h-1/2 bg-white rounded-full"></div>
-                </div>
-              </div>
-              <div className="absolute bottom-0 right-12 w-64 h-64 md:w-80 md:h-80 bg-green-500 opacity-90">
-                <div className="relative w-full h-full">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-3/4 h-3/4 bg-white opacity-70 transform rotate-12"></div>
-                  </div>
-                </div>
-              </div>
-              <div className="absolute top-1/2 right-1/3 transform rotate-45">
-                <svg viewBox="0 0 100 100" className="w-48 h-48 opacity-70">
-                  <line x1="0" y1="0" x2="100" y2="100" stroke="black" strokeWidth="1" />
-                  <line x1="0" y1="100" x2="100" y2="0" stroke="black" strokeWidth="1" />
-                </svg>
-              </div>
-            </div> */}
-            <div className="relative bg-red-300 h-[50vh] md:h-96 lg:h-full">
+          <div className="w-full flex justify-end h-[50vh] md:w-1/2">
+            <div className="relative h-[50vh] md:h-96 lg:h-full">
+              <div className="h-96 w-96">
               <Image
+                fill
                 src="https://miro.medium.com/v2/format:webp/4*SdjkdS98aKH76I8eD0_qjw.png"
                 alt="Medium Logo"
-                width={100}
-                height={100}
-                className="rounded-full"
-              />
+                className="object-cover h-1/2 w-1/2"
+                />
+                </div>
             </div>
           </div>
         </div>

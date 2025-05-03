@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        domains: ['miro.medium.com', 'files.edgestore.dev'],
+        domains: ['miro.medium.com', 'upload.wikimedia.org'],
       },
 };
 
