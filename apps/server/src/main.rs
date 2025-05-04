@@ -29,7 +29,6 @@ struct ArticlePayload {
 async fn main() {
   let articles: Db = Arc::new(Mutex::new(Vec::new()));
 
-
   let cors = CorsLayer::new()
   .allow_methods(Any)
   .allow_headers([CONTENT_TYPE, AUTHORIZATION])

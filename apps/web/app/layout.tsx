@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 // import "./globals.css";
 import "@repo/tailwind-config/styles";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -25,6 +26,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <Toaster
+  position="top-center"
+  reverseOrder={false}
+/>
         {children}
       </body>
     </html>

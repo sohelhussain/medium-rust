@@ -10,12 +10,15 @@ import "@blocknote/core/fonts/inter.css";
 import { BlockNoteView } from "@blocknote/mantine";
 import "@blocknote/mantine/style.css";
 import { useCreateBlockNote } from "@blocknote/react";
+import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 
 export default function MediumEditorPage() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('Tell your story...');
   const editor = useCreateBlockNote();
+  const router = useRouter();
 
   const handlePublish = async () => {
     try {
@@ -25,6 +28,8 @@ export default function MediumEditorPage() {
         content: blocks,
       });
       console.log('Published:', response.data);
+      toast.success('Article published successfully!');
+      router.push('/readhome');
     } catch (error) {
       console.error('Error publishing article:', error);
     }

@@ -1,50 +1,58 @@
 "use client"
 
 
-
-import { useState } from 'react';
-import { Search, Heart, MessageCircle, Bookmark, MoreHorizontal, ChevronRight } from 'lucide-react';
+import { Search, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
+import ArticleCard from './_components/articlecard';
 import Link from 'next/link';
+import StaffPickCard from './_components/staffpickcard';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
-// Mock data for articles
-const articles = [
-  {
-    id: '1',
-    title: 'Love Is Not a Feeling',
-    subtitle: "It's a way of being in the world",
-    author: 'Pierz Newton-John',
-    publication: 'Thought Thinkers',
-    date: 'Apr 26',
-    likes: '1.1K',
-    comments: '33',
-    image: '/api/placeholder/150/100',
-    verified: true
-  },
-  {
-    id: '2',
-    title: 'My Favourite Software Architecture Patterns',
-    subtitle: 'Exploring my most loved Software Architecture patterns and their practical applications.',
-    author: 'Matt Bentley',
-    publication: 'Level Up Coding',
-    date: 'Nov 12, 2024',
-    likes: '5.8K',
-    comments: '116',
-    image: '/api/placeholder/150/100'
-  },
-  {
-    id: '3',
-    title: 'I Didn\'t Know These Common Habits Were Signs of Mental Health Issues',
-    subtitle: 'These everyday habits felt harmless, until I learned they were quiet signs my mind was asking for help.',
-    author: 'Shaant',
-    publication: 'Long After the Thrill',
-    date: 'Apr 20',
-    likes: '3.2K',
-    comments: '78',
-    image: '/api/placeholder/150/100'
-  }
-];
+
+
+export default function MediumBlog() {
+  const router = useRouter();
+
+
+  // Mock data for articles
+// const articles = [
+//   {
+//     id: '1',
+//     title: 'Love Is Not a Feeling',
+//     subtitle: "It's a way of being in the world",
+//     author: 'Pierz Newton-John',
+//     publication: 'Thought Thinkers',
+//     date: 'Apr 26',
+//     likes: '1.1K',
+//     comments: '33',
+//     image: 'https://images.unsplash.com/photo-1445053023192-8d45cb66099d?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+//     verified: true
+//   },
+//   {
+//     id: '2',
+//     title: 'My Favourite Software Architecture Patterns',
+//     subtitle: 'Exploring my most loved Software Architecture patterns and their practical applications.',
+//     author: 'Matt Bentley',
+//     publication: 'Level Up Coding',
+//     date: 'Nov 12, 2024',
+//     likes: '5.8K',
+//     comments: '116',
+//     image: 'https://images.unsplash.com/photo-1669023414162-5bb06bbff0ec?q=80&w=2664&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+//   },
+//   {
+//     id: '3',
+//     title: 'I Didn\'t Know These Common Habits Were Signs of Mental Health Issues',
+//     subtitle: 'These everyday habits felt harmless, until I learned they were quiet signs my mind was asking for help.',
+//     author: 'Shaant',
+//     publication: 'Long After the Thrill',
+//     date: 'Apr 20',
+//     likes: '3.2K',
+//     comments: '78',
+//     image: 'https://images.unsplash.com/photo-1623908277264-f123c5d7d441?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+//   }
+// ];
 
 // Staff picks data
 const staffPicks = [
@@ -53,19 +61,23 @@ const staffPicks = [
     title: 'Can You Spot Fake News? Many Can\'t When Scored on a Validated Test',
     author: 'Andrea Romeo RN, BN',
     publication: 'Wise & Well',
-    date: 'Apr 18'
+    date: 'Apr 18',
+    image: 'https://plus.unsplash.com/premium_photo-1690407617686-d449aa2aad3c?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+    // image: 'https://plus.unsplash.com/premium_photo-1690407617542-2f210cf20d7e?q=80&w=2417&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
   },
   {
     id: '5',
     title: 'I worked for Pope Francis. Here is what he was really like.',
     author: 'Daniel B. Gallagher',
-    date: 'Apr 22'
+    date: 'Apr 22',
+    image: 'https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHBlcnNvbnxlbnwwfDB8MHx8fDA%3D'
   },
   {
     id: '6',
     title: 'My Notes App Is a Beautiful Mess of Creativity and Chaos',
     author: 'Vaibhavi Naik',
-    date: 'Apr 17'
+    date: 'Apr 17',
+    image: 'https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8cGVyc29ufGVufDB8MHwwfHx8MA%3D%3D'
   }
 ];
 
@@ -80,40 +92,34 @@ const topics = [
   'Productivity'
 ];
 
-export default function MediumBlog() {
-  const [selectedArticle, setSelectedArticle] = useState<null | any>(null);
-  
-  // Function to handle article click
-  const handleArticleClick = (articleId:any) => {
-    // In a real application, this would navigate to the article page
-    // For this demo, we'll just display which article was clicked
-    const article = [...articles, ...staffPicks].find(a => a.id === articleId);
-    setSelectedArticle(article);    
-  };
-  
-  // Function to go back to main feed
-  const handleBackToFeed = () => {
-    setSelectedArticle(null);
-  };
+const [articles, setArticles] = useState<{ id: string; [key: string]: any }[]>([]);
 
-  return (
-    <div className="max-w-screen-xl mx-auto bg-white">
-      {selectedArticle ? (
-        <ArticleView article={selectedArticle} onBack={handleBackToFeed} />
-      ) : (
-        <MainFeed 
-          articles={articles} 
-          staffPicks={staffPicks} 
-          topics={topics} 
-          onArticleClick={handleArticleClick} 
-        />
-      )}
-    </div>
-  );
-}
+useEffect(() => {
+  async function fetchArticles() {
+    try {
+      const response = await axios.get('http://localhost:4000/articles');
+      setArticles(response.data);
+    } catch (error) {
+      console.error('Error fetching articles:', error);
+    }
+  }
+  fetchArticles();
+}, []);
 
-// Main feed component
-function MainFeed({ articles, staffPicks, topics, onArticleClick }:any) {
+const handleNavigation = () => {
+  if (router && typeof router.push === 'function') {
+    const firstArticle = articles[0];
+    if (firstArticle && firstArticle.id) {
+      router.push(`/readhome/${firstArticle.id}`);
+    } else {
+      console.error('No articles available or missing id');
+    }
+  } else {
+    console.error('router.push is not a function');
+  }
+};
+
+
 
   return (
     <div className="flex flex-col md:flex-row">
@@ -133,8 +139,8 @@ function MainFeed({ articles, staffPicks, topics, onArticleClick }:any) {
             <Link href="/create-article" className="px-4 py-2 border border-gray-800 rounded-full hover:bg-gray-100 hidden md:block">
               Write
             </Link>
-            <div className="w-8 h-8 rounded-full bg-gray-300">
-                {/* <Image src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" alt="User avatar" fill className="h-full w-full object-cover" /> */}
+            <div className="w-8 h-8 rounded-full relative overflow-hidden bg-gray-300 shadow-md">
+                <Image sizes='(max-width: 768px) 100vw, 1200px' src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" alt="User avatar" fill className="h-full w-full object-cover" />
             </div>
           </div>
         </header>
@@ -159,7 +165,7 @@ function MainFeed({ articles, staffPicks, topics, onArticleClick }:any) {
             <ArticleCard 
               key={article.id} 
               article={article} 
-              onClick={() => onArticleClick(article.id)} 
+              onClick={() => router.push(`/readhome/${article.id}`)}
             />
           ))}
         </div>
@@ -171,10 +177,9 @@ function MainFeed({ articles, staffPicks, topics, onArticleClick }:any) {
           <h2 className="text-lg font-bold mb-4">Staff Picks</h2>
           <div className="space-y-6">
             {staffPicks.map((article: any) => (
-              <StaffPickCard 
-                key={article.id} 
-                article={article} 
-                onClick={() => onArticleClick(article.id)} 
+              <StaffPickCard
+                key={article.id}
+                article={article}
               />
             ))}
           </div>
@@ -199,105 +204,9 @@ function MainFeed({ articles, staffPicks, topics, onArticleClick }:any) {
       </div>
     </div>
   );
+
 }
 
-// Article card component
-function ArticleCard({ article, onClick }: any) {
-  return (
-    <div className="flex flex-col md:flex-row gap-4 cursor-pointer" onClick={onClick}>
-      <div className="flex-1">
-        <div className="flex items-center mb-2">
-          <div className="w-6 h-6 rounded-full bg-gray-300 mr-2"></div>
-          <span className="text-sm text-gray-700">In {article.publication} by {article.author}</span>
-          {article.verified && <span className="ml-1 text-blue-500">✓</span>}
-        </div>
-        <h2 className="text-xl font-bold mb-1">{article.title}</h2>
-        <p className="text-gray-700 mb-3">{article.subtitle}</p>
-        <div className="flex items-center text-sm text-gray-500 space-x-4">
-          <span>{article.date}</span>
-          <div className="flex items-center">
-            <Heart className="w-4 h-4 mr-1" /> 
-            <span>{article.likes}</span>
-          </div>
-          <div className="flex items-center">
-            <MessageCircle className="w-4 h-4 mr-1" /> 
-            <span>{article.comments}</span>
-          </div>
-          <div className="flex-grow"></div>
-          <button><Bookmark className="w-5 h-5" /></button>
-          <button><MoreHorizontal className="w-5 h-5" /></button>
-        </div>
-      </div>
-      <div className="w-full md:w-40 h-24 flex-shrink-0">
-        <img 
-          src={article.image} 
-          alt={article.title} 
-          className="w-full h-full object-cover" 
-        />
-      </div>
-    </div>
-  );
-}
 
-// Staff pick card component
-function StaffPickCard({ article, onClick }:any) {
-  return (
-    <div className="cursor-pointer" onClick={onClick}>
-      <div className="flex items-center mb-2">
-        <div className="w-6 h-6 rounded-full bg-gray-300 mr-2"></div>
-        {article.publication && (
-          <span className="text-sm text-gray-700">In {article.publication} by {article.author}</span>
-        )}
-        {!article.publication && (
-          <span className="text-sm text-gray-700">{article.author}</span>
-        )}
-      </div>
-      <h3 className="font-bold">{article.title}</h3>
-      <div className="text-sm text-gray-500 mt-1">{article.date}</div>
-    </div>
-  );
-}
 
-// Article view component
-function ArticleView({ article, onBack }:any) {
-  return (
-    <div className="p-4">
-      <button 
-        onClick={onBack} 
-        className="mb-4 flex items-center text-gray-600 hover:text-gray-900"
-      >
-        <span className="mr-2">←</span> Back to feed
-      </button>
-      
-      <div className="max-w-3xl mx-auto">
-        <h1 className="text-3xl font-bold mb-4">{article.title}</h1>
-        {article.subtitle && (
-          <p className="text-xl text-gray-600 mb-6">{article.subtitle}</p>
-        )}
-        
-        <div className="flex items-center mb-6">
-          <div className="w-12 h-12 rounded-full bg-gray-300 mr-3"></div>
-          <div>
-            <div className="font-medium">{article.author}</div>
-            <div className="text-sm text-gray-500 flex items-center">
-              <span>{article.date}</span>
-              {article.likes && (
-                <span className="ml-3">• {article.likes} likes</span>
-              )}
-            </div>
-          </div>
-        </div>
-        
-        <div className="prose max-w-none">
-          <p>This is where the article content would appear. In a real application, this would be the full content of the article retrieved from a database or API.</p>
-          <p>The article with ID {article.id} was selected.</p>
-          
-          <h2>Example heading in the article</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          
-          <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        </div>
-      </div>
-    </div>
-  );
-}
+
