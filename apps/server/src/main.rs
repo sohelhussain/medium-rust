@@ -2,16 +2,12 @@ use axum::{
   extract::{Path, State, Json},
   routing::{get, post, put, delete},
   Router,
-  http::StatusCode,
+  http::{StatusCode, header::{HeaderValue, CONTENT_TYPE, AUTHORIZATION}},
 };
 use serde::{Deserialize, Serialize};
 use std::sync::{Arc, Mutex};
 use tower_http::cors::{CorsLayer, Any};
 
-const cors = CorsLayer::new()
-  .allow_origin(Any)
-  .allow_methods(Any)
-  .allow_headers(Any);
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 struct Article {
@@ -32,6 +28,12 @@ struct ArticlePayload {
 #[tokio::main]
 async fn main() {
   let articles: Db = Arc::new(Mutex::new(Vec::new()));
+
+
+  let cors = CorsLayer::new()
+  .allow_methods(Any)
+  .allow_headers([CONTENT_TYPE, AUTHORIZATION])
+  .allow_origin(HeaderValue::from_static("http://localhost:3000"));
 
   let app = Router::new()
       .route("/articles", post(create_article).get(list_articles))
