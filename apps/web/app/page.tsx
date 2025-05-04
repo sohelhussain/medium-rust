@@ -4,12 +4,18 @@ import Image, { type ImageProps } from "next/image";
 import { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 
 
 export default function Home() {
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const router = useRouter();
+
+  const handleNavigation = () => {
+    router.push('/');
+  }
 
   return (
     <div className="min-h-screen  bg-[#ffffff]">
@@ -23,7 +29,7 @@ export default function Home() {
       <nav className="border-b border-gray-200 px-4 py-4 md:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className="flex-shrink-0">
+          <div onClick={handleNavigation} className="flex-shrink-0 cursor-pointer">
             <h1 className="text-2xl font-bold">Medium</h1>
           </div>
 

@@ -119,6 +119,9 @@ const handleNavigation = () => {
   }
 };
 
+const handleNavigationHome = () => {
+  router.push('/');
+}
 
 
   return (
@@ -126,7 +129,7 @@ const handleNavigation = () => {
       <div className="w-full md:w-3/4 p-4 border-r border-gray-200">
         {/* Header */}
         <header className="flex justify-between items-center py-4 border-b border-gray-200 mb-6">
-          <div className="text-2xl font-bold">Medium</div>
+          <div onClick={handleNavigationHome} className="text-2xl font-bold cursor-pointer">Medium</div>
           <div className="flex items-center space-x-4">
             <div className="relative hidden md:block">
               <input 
