@@ -11,7 +11,7 @@ export default function ReadArticle({ onBack }: any) {
   const { articleId } = useParams();
   const router = useRouter();
 
-  // Synchronous function to extract the first image URL from markdown
+
   function extractFirstImageUrl(markdown: string): string | null {
     const regex = /!\[.*?\]\((.*?)\)/;
     const match = regex.exec(markdown);
@@ -19,7 +19,6 @@ export default function ReadArticle({ onBack }: any) {
   }
 
   function removeMarkdownImages(markdown: string): string {
-    // Regular expression to match Markdown image syntax: ![alt text](image_url)
     return markdown.replace(/!\[.*?\]\(.*?\)/g, '');
   }
 

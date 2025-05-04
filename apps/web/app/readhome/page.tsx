@@ -16,43 +16,6 @@ export default function MediumBlog() {
   const router = useRouter();
 
 
-  // Mock data for articles
-// const articles = [
-//   {
-//     id: '1',
-//     title: 'Love Is Not a Feeling',
-//     subtitle: "It's a way of being in the world",
-//     author: 'Pierz Newton-John',
-//     publication: 'Thought Thinkers',
-//     date: 'Apr 26',
-//     likes: '1.1K',
-//     comments: '33',
-//     image: 'https://images.unsplash.com/photo-1445053023192-8d45cb66099d?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-//     verified: true
-//   },
-//   {
-//     id: '2',
-//     title: 'My Favourite Software Architecture Patterns',
-//     subtitle: 'Exploring my most loved Software Architecture patterns and their practical applications.',
-//     author: 'Matt Bentley',
-//     publication: 'Level Up Coding',
-//     date: 'Nov 12, 2024',
-//     likes: '5.8K',
-//     comments: '116',
-//     image: 'https://images.unsplash.com/photo-1669023414162-5bb06bbff0ec?q=80&w=2664&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-//   },
-//   {
-//     id: '3',
-//     title: 'I Didn\'t Know These Common Habits Were Signs of Mental Health Issues',
-//     subtitle: 'These everyday habits felt harmless, until I learned they were quiet signs my mind was asking for help.',
-//     author: 'Shaant',
-//     publication: 'Long After the Thrill',
-//     date: 'Apr 20',
-//     likes: '3.2K',
-//     comments: '78',
-//     image: 'https://images.unsplash.com/photo-1623908277264-f123c5d7d441?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-//   }
-// ];
 
 // Staff picks data
 const staffPicks = [

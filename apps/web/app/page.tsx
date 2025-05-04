@@ -37,8 +37,6 @@ export default function Home() {
           <div className="hidden md:flex items-center space-x-6">
             <Link href="#" className="text-gray-700 hover:text-gray-900">Our story</Link>
             <Link href="#" className="text-gray-700 hover:text-gray-900">Membership</Link>
-            {/* <Link href="#" className="text-gray-700 hover:text-gray-900">Write</Link> */}
-            {/* <a href="#" className="text-gray-700 hover:text-gray-900">Sign in</a> */}
             <Link href="/create-article" className="bg-black text-white rounded-full px-4 py-2 hover:bg-gray-800">
               Write now
             </Link>
@@ -69,8 +67,6 @@ export default function Home() {
             <div className="flex flex-col space-y-4 pb-3">
               <Link href="#" className="text-gray-700 hover:text-gray-900">Our story</Link>
               <Link href="#" className="text-gray-700 hover:text-gray-900">Membership</Link>
-              {/* <Link href="#" className="text-gray-700 hover:text-gray-900">Write</Link> */}
-              {/* <Link href="#" className="text-gray-700 hover:text-gray-900">Sign in</Link> */}
               <Link href="/create-article" className="bg-black text-white rounded-full px-4 py-2 text-center hover:bg-gray-800">
                 Write now
               </Link>
